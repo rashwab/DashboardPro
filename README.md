@@ -55,4 +55,32 @@
 ---
 
 ## Project Structure
+DashboardPro/
+│
+├── app.py # Main Flask application
+├── app.db # SQLite database
+├── plswork.xlsx # Excel data file for fallback
+├── requirements.txt # Python dependencies
+├── templates/ # HTML templates (login, index, tasks, messages, settings)
+├── static/ # CSS, JS, and images
+│ └── styles.css
+└── README.md # Project documentation
+
+
+---
+
+## Setup Instructions
+
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/rashwab/DashboardPro-.git
+cd DashboardPro-
+
+python -m venv venv
+source venv/bin/activate   # On Windows: venv\Scripts\activate
+
+export FLASK_SECRET_KEY='your_secret_key_here'  # Windows: set FLASK_SECRET_KEY=your_secret_key_here
+
+python app.py
 
