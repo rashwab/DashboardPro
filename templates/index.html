@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<!-- ================= TOP NAVBAR ================= -->
+<header class="navbar navbar-expand-lg px-4">
+  <a class="navbar-brand" href="#">
+    <img src="{{ url_for('static', filename='mock.jpg') }}" alt="Logo" height="40">
+  </a>
+
+  <div class="ms-auto">
+    <ul class="navbar-nav flex-row align-items-center gap-3">
+      <li class="nav-item">
+        <a class="nav-link" href="#"><i class="bi bi-bell fs-5"></i></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link d-flex align-items-center gap-2" href="#">
+          <i class="bi bi-person-circle fs-5"></i>
+          {{ username if username else 'User' }}
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<!-- ================= PAGE LAYOUT ================= -->
+<div class="d-flex">
+
+  <!-- ========== SIDEBAR ========== -->
+  <aside class="p-3" style="width:220px; min-height:100vh;">
+    <h6 class="fw-bold text-uppercase text-muted mb-4">Dashboard</h6>
+
+    <ul class="navbar-nav gap-2">
+      <li class="nav-item">
+        <a class="nav-link active d-flex align-items-center" href="#">
+          <i class="bi bi-house-door-fill me-2"></i> Home
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link d-flex align-items-center" href="#">
+          <i class="bi bi-file-earmark-text me-2"></i> Reports
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link d-flex align-items-center" href="{{ url_for('settings') }}">
+          <i class="bi bi-gear me-2"></i> Settings
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link d-flex align-items-center" href="{{ url_for('tasks') }}">
+          <i class="bi bi-list-task me-2"></i> Tasks
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link d-flex align-items-center" href="{{ url_for('messages') }}">
+          <i class="bi bi-chat-text me-2"></i> Messages
+        </a>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main class="flex-grow-1 p-4">
+    <div class="container-fluid">
+
+      <h1 class="mb-4">Welcome {{ username if username else '' }}</h1>
+
+      <div class="row g-4">
+
+        <!-- KPI CHART -->
+        <div class="col-lg-6">
+          <div class="card p-4 h-100">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h5 class="mb-0">KPI Performance Rate</h5>
+
+              {% if change > 0 %}
+                <span class="badge bg-success">▲ {{ change }}%</span>
+              {% else %}
+                <span class="badge bg-danger">▼ {{ change | abs }}%</span>
+              {% endif %}
+            </div>
+
+            <div class="ratio ratio-16x9">
+              <canvas id="linechart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- SALES -->
+        <div class="col-lg-6">
+          <div class="card p-4 h-100">
+            <h6>Sales Units</h6>
+            <h3>157,367</h3>
+            <span class="badge bg-success mb-2">▲ 6.7% Increase</span>
+
+            <div class="ratio ratio-16x9">
+              <canvas id="saleschart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- EMPLOYEE -->
+        <div class="col-lg-6">
+          <div class="card p-4 h-100">
+            <h6>Best Performing Employee</h6>
+            <h3>Carol Lee</h3>
+            <span class="badge bg-success mb-2">▲ 4.7% Increase</span>
+
+            <div class="ratio ratio-16x9">
+              <canvas id="employeechart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- TASKS -->
+        <div class="col-lg-6">
+          <div class="card p-4 h-100">
+            <h6>Your Tasks</h6>
+
+            <div class="ratio ratio-16x9">
+              <canvas id="taskchart"></canvas>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</div>
+
+
+<!-- ================= CHART SCRIPTS ================= -->
+<script>
+const lineCtx = document.getElementById('linechart').getContext('2d');
+const gradient = lineCtx.createLinearGradient(0,0,0,400);
+gradient.addColorStop(0,'rgba(75,192,192,0.5)');
+gradient.addColorStop(1,'rgba(75,192,192,0)');
+
+new Chart(lineCtx,{
+  type:'line',
+  data:{
+    labels: {{ kpi_labels|safe }},    
+    datasets:[{
+      data: {{ kpi_values|safe }},  
+      fill:true,
+      backgroundColor:gradient,
+      borderColor:'rgba(75,192,192,1)',
+      tension:0.4
+    }]
+  },
+  options:{responsive:true, maintainAspectRatio:false}
+});
+
+new Chart(document.getElementById('saleschart'),{
+  type:'bar',
+  data:{labels: {{ sales_products|safe }}, datasets:[{data: {{ sales_units|safe }}}]},  // No JSON()!
+  options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}}
+});
+new Chart(document.getElementById('employeechart'),{
+  type:'bar',
+  data:{labels: {{ employee_names|safe }}, datasets:[{data: {{ employee_efficiency|safe }}}]},
+  options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}}
+});
+
+new Chart(document.getElementById('taskchart'),{
+  type:'doughnut',
+  data:{labels: {{ task_labels|safe }}, datasets:[{data: {{ task_counts|safe }}}]},
+  options:{responsive:true, maintainAspectRatio:false}
+});
+</script>
+
+</body>
+</html>

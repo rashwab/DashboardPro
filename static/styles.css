@@ -1,0 +1,221 @@
+/* Global */
+body {
+    font-family: 'Inter', sans-serif;
+    background: #f4f6fb;
+    color: #1f2937;
+}
+
+/* Top Navbar */
+.navbar {
+    background: #ffffff;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+}
+
+.navbar img {
+    max-height: 40px;
+}
+
+/* Sidebar */
+.navbar-light.flex-column {
+    background: #ffffff;
+    border-right: 1px solid #e5e7eb;
+}
+
+.navbar-brand {
+    font-size: 1.1rem;
+    color: #111827;
+}
+
+.nav-link {
+    color: #4b5563;
+    padding: 0.65rem 0.8rem;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+.nav-link i {
+    font-size: 1.1rem;
+}
+
+.nav-link:hover {
+    background: #f1f5ff;
+    color: #2563eb;
+}
+
+.nav-link.active {
+    background: #2563eb;
+    color: #ffffff !important;
+}
+
+/* Main Content */
+.container h1 {
+    font-weight: 700;
+    color: #111827;
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 35px rgba(0,0,0,0.08);
+}
+
+.card h5,
+.card h6 {
+    font-weight: 600;
+    color: #111827;
+}
+
+.card h3 {
+    font-weight: 700;
+}
+
+/* Badges */
+.badge {
+    font-size: 0.8rem;
+    padding: 0.35em 0.65em;
+    border-radius: 999px;
+}
+
+.bg-success {
+    background: #16a34a !important;
+}
+
+.bg-danger {
+    background: #dc2626 !important;
+}
+
+/* Charts */
+canvas {
+    max-height: 100%;
+}
+
+/* Utility spacing */
+.ratio {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+ .task-item {
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 0.75rem;
+      background: white;
+      transition: all 0.2s ease;
+    }
+    
+    .task-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      border-color: #2563eb;
+    }
+    
+    .task-status {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+    
+    .status-in-progress {
+      background: #e0f2fe;
+      color: #0284c7;
+    }
+    
+    .status-not-started {
+      background: #fef3c7;
+      color: #d97706;
+    }
+    
+    .status-completed {
+      background: #dcfce7;
+      color: #16a34a;
+    }
+    
+    .status-in-progress-side {
+      background: #2563eb;
+      color: white;
+    }
+    
+    .status-not-started-side {
+      background: #6b7280;
+      color: white;
+    }
+    
+    .status-completed-side {
+      background: #16a34a;
+      color: white;
+    }
+    
+    .task-actions .btn {
+      padding: 0.25rem 0.75rem;
+      font-size: 0.875rem;
+    }
+    
+    .add-task-btn {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      border: none;
+      padding: 0.5rem 1.25rem;
+      border-radius: 10px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .add-task-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
+    }
+    
+    .task-stat-card {
+      background: white;
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+      height: 100%;
+    }
+    
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #111827;
+    }
+    
+    .stat-label {
+      font-size: 0.875rem;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .filter-select {
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      background: white;
+    }
+    
+    .filter-select:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: #6b7280;
+    }
+    
+    .empty-state i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #d1d5db;
+    }
