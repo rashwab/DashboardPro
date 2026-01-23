@@ -74,6 +74,16 @@ def login():
     flash("Invalid username or password")
     return redirect(url_for("login_page"))
 
+# -------------------- LightMode / Darkmode --------------------
+@pages.get("/toggle-theme")
+def toggle_theme():
+    current_theme = session.get("theme")
+    if current_theme == "dark":
+        session["theme"] = "light"
+    else:
+        session["theme"] = "dark"
+
+    return redirect(request.args.get("current_page"))
 # -------------------- DASHBOARD --------------------
 
 @app.route("/dashboard")
@@ -256,4 +266,5 @@ def logout():
 
 if __name__ == "__main__":
     app.run()
+
 
